@@ -1,3 +1,3 @@
-import { app } from "~/main/app";
+import { app } from '~/main/app'
 
-app.listen(3333);
+app.listen(3333)
