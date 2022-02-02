@@ -2,7 +2,22 @@
   "compilerOptions": {
     "target": "es2016",
     "module": "commonjs",
+    "lib": ["ESNext"],
     "esModuleInterop": true,
+    "sourceMap": true,
+    "removeComments": true,
+    "allowJs": true,
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "resolveJsonModule": true,
+    "typeRoots": [
+      "./node_modules/@types",
+      "./src/main/@types"
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["./src/*"]
+    },
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "skipLibCheck": true
