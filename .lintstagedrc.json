@@ -1,7 +1,7 @@
 {
   "*.ts": [
     "eslint --fix",
-    "cross-env CI=true yarn test --bail --findRelatedTests",
+    "yarn test --bail --findRelatedTests",
     "git add --all"
   ]
 }
