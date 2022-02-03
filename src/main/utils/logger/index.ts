@@ -1,18 +1,30 @@
-import { createLogger, format, transports } from 'winston'
+import { createLogger, format, Logger, transports } from 'winston'
 
-const logger = createLogger({
-  defaultMeta: { service: 'user-service' },
-  transports: [
-    new transports.Console({
-      format: format.combine(format.timestamp(), format.json())
+interface ILogger {
+  meta: string
+  message: string
+}
+
+export class Log {
+  private logger: Logger
+  private constructor(meta: string) {
+    this.logger = createLogger({
+      defaultMeta: { meta },
+      transports: [
+        new transports.Console({
+          format: format.combine(format.timestamp(), format.json())
+        })
+      ]
     })
-  ]
-})
+  }
 
-// logger.add(
-//   new winston.transports.Console({
-//     format: winston.format.simple()
-//   })
-// )
+  static info(log: ILogger) {
+    const console = new Log(log.meta)
+    return console.logger.info(log.message)
+  }
 
-export { logger }
+  static error(log: ILogger) {
+    const console = new Log(log.meta)
+    return console.logger.error(log.message)
+  }
+}

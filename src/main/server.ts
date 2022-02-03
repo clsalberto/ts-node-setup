@@ -1,4 +1,9 @@
 import { app } from '~/main/app'
-import { logger } from '~/main/utils/logger'
+import { Log } from '~/main/utils/logger'
 
-app.listen(3333, () => logger.info('Sever is running'))
+app.listen(3333, () =>
+  Log.info({
+    meta: 'start-server',
+    message: 'Server is running'
+  })
+)
