@@ -1,12 +1,12 @@
 import 'dotenv/config'
 import express from 'express'
 
+import { routes } from './routes'
+
 const app = express()
 
 app.use(express.json())
 
-app.get('/', (request, response) => {
-  return response.status(200).json({ message: 'Welcome!' })
-})
+app.use('/api', routes)
 
 export { app }

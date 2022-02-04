@@ -1,0 +1,32 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String   @id @db.Uuid
+  avatar        Image?   @relation(fields: [image_id], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  image_id      String?  @db.Uuid
+  name          String   @db.VarChar(80)
+  email         String   @unique @db.VarChar(120)
+  password_hash String   @db.VarChar(180)
+  token         String   @unique @db.VarChar(60)
+  expired_at    DateTime
+  created_at    DateTime @default(now())
+  activated     Boolean  @default(false) @db.Boolean
+
+  @@map("users")
+}
+
+model Image {
+  id   String @id @db.Uuid
+  path String
+  size Int
+
+  user User[]
+  @@map("images")
+}
