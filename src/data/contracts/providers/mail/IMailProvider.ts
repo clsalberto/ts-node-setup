@@ -3,12 +3,18 @@ interface IAddress {
   email: string
 }
 
+interface Attachment {
+  filename: string
+  content: string
+  path: string
+}
+
 export interface IMessage {
   to: IAddress
   from: IAddress
   subject: string
-  text?: string
   html: string
+  attachments?: Attachment[]
 }
 
 export interface IMailProvider {
