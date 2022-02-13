@@ -22,11 +22,11 @@
         "newlinesBetween": "always",
         "groups": [
           "module",
-          "/^~/domain/",
-          "/^~/data/",
-          "/^~/infrastructure/",
-          "/^~/presentation/",
-          "/^~/main/",
+          "/^~/app/",
+          "/^~/database/",
+          "/^~/libs/",
+          "/^~/config/",
+          "/^~/routes/",
           ["parent", "sibling", "index"]
         ],
         "alphabetize": { "order": "asc", "ignoreCase": true }
