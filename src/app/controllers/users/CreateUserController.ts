@@ -1,8 +1,9 @@
 import { Request, Response } from 'express'
 
+import { IControllerBase } from '~/app/contracts/controllers'
 import { CreateUserService } from '~/app/services'
 
-export class CreateUserController {
+export class CreateUserController implements IControllerBase {
   constructor(private createUserService: CreateUserService) {}
 
   async handle(request: Request, response: Response): Promise<Response> {

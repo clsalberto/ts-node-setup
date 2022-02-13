@@ -1,4 +1,4 @@
-import { mongoose } from '..'
+import { mongoose } from '~/database/mongoose'
 
 interface IAuthor {
   name: string

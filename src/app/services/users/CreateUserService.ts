@@ -1,6 +1,7 @@
 import { hash } from 'bcryptjs'
 
 import { IUsersRepository } from '~/app/contracts/repositories'
+import { IServiceBase } from '~/app/contracts/services'
 import { User } from '~/app/entities'
 
 import { add } from '~/libs/queue'
@@ -12,7 +13,7 @@ interface IUserRequest {
   activated: boolean
 }
 
-export class CreateUserService {
+export class CreateUserService implements IServiceBase {
   constructor(private usersRepository: IUsersRepository) {}
 
   async execute({
