@@ -35,13 +35,43 @@ export class PrismaUsersRepository implements IUsersRepository {
     return userData
   }
 
-  async exists(email: string): Promise<boolean> {
+  async findByEmail(email: string): Promise<User> {
     const user = await prisma.user.findUnique({
       where: {
         email
       }
     })
 
-    return !!user
+    return user
+  }
+
+  async findByToken(token: string): Promise<User> {
+    const user = await prisma.user.findUnique({
+      where: {
+        token
+      }
+    })
+
+    return user
+  }
+
+  async activeByToken(token: string): Promise<User> {
+    const user = await prisma.user.update({
+      where: {
+        token
+      },
+      data: {
+        activated: true
+      }
+    })
+
+    const log = {
+      type: 'info',
+      message: 'Prisma: Activate new user',
+      data: user
+    }
+    await add('CreateSystemLog', { log })
+
+    return user
   }
 }

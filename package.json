@@ -4,7 +4,7 @@
   "main": "src/main/server.js",
   "license": "MIT",
   "scripts": {
-    "build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files --no-copy-ignored",
+    "build": "rimraf dist && babel src --extensions \".js,.ts\" --out-dir dist --copy-files --no-copy-ignored",
     "dev": "npm-run-all -p dev:*",
     "dev:server": "tsnd -r tsconfig-paths/register --respawn --transpile-only --ignore-watch node_modules --no-notify src/server.ts",
     "dev:queue": "tsnd -r tsconfig-paths/register --respawn --transpile-only --ignore-watch node_modules --no-notify src/queue.ts",
@@ -62,6 +62,7 @@
     "express": "^4.17.2",
     "mongoose": "^6.2.0",
     "nodemailer": "^6.7.2",
+    "rimraf": "^3.0.2",
     "uuid": "^8.3.2"
   },
   "config": {

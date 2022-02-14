@@ -22,7 +22,7 @@ export class CreateUserService implements IServiceBase {
     password,
     activated
   }: IUserRequest): Promise<User> {
-    const userAlreadyExists = await this.usersRepository.exists(email)
+    const userAlreadyExists = await this.usersRepository.findByEmail(email)
 
     if (userAlreadyExists) {
       throw new Error('User already exists')

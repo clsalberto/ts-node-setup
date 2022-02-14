@@ -29,8 +29,27 @@ export class FakeUsersRepository implements IUsersRepository {
     return user
   }
 
-  async exists(email: string): Promise<boolean> {
-    const user = this.users.some(user => user.email === email)
+  async findByEmail(email: string): Promise<User> {
+    const user = this.users.find(user => user.email === email)
+    return user
+  }
+
+  async findByToken(token: string): Promise<User> {
+    const user = this.users.find(user => user.token === token)
+    return user
+  }
+
+  async activeByToken(token: string): Promise<User> {
+    const user = this.users.find(user => user.token === token)
+    user.activated = true
+
+    const log = {
+      type: 'info',
+      message: 'Fake: Activate new user',
+      data: user
+    }
+    await add('CreateSystemLog', { log })
+
     return user
   }
 }
