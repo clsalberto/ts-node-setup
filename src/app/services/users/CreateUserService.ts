@@ -22,20 +22,31 @@ export class CreateUserService implements IServiceBase {
     password,
     activated
   }: IUserRequest): Promise<User> {
-    const userAlreadyExists = await this.usersRepository.findByEmail(email)
+    try {
+      const userAlreadyExists = await this.usersRepository.findByEmail(email)
 
-    if (userAlreadyExists) {
-      throw new Error('User already exists')
+      if (userAlreadyExists) {
+        throw new Error('User already exists')
+      }
+
+      const password_hash = await hash(password, 8)
+
+      const createUser = User.create({ name, email, password_hash, activated })
+
+      const user = await this.usersRepository.create(createUser)
+
+      await add('CreateUserMail', { user })
+
+      return user
+    } catch (error) {
+      const log = {
+        type: 'error',
+        message: error.message,
+        data: { error }
+      }
+
+      await add('CreateSystemLog', { log })
+      throw new Error(error.message)
     }
-
-    const password_hash = await hash(password, 8)
-
-    const createUser = User.create({ name, email, password_hash, activated })
-
-    const user = await this.usersRepository.create(createUser)
-
-    await add('CreateUserMail', { user })
-
-    return user
   }
 }

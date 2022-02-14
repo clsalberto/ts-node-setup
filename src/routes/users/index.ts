@@ -1,8 +1,16 @@
 import { Router } from 'express'
 
-import { activateUserFactory, createUserFactory } from '~/app/factories'
+import {
+  activateUserFactory,
+  createUserFactory,
+  loadUsersFactory
+} from '~/app/factories'
 
 const routes = Router()
+
+routes.get('/', (request, response) =>
+  loadUsersFactory().handle(request, response)
+)
 
 routes.post('/', (request, response) =>
   createUserFactory().handle(request, response)

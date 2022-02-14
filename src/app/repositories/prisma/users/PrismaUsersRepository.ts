@@ -9,6 +9,23 @@ import { prisma } from '~/database/prisma'
 import { add } from '~/libs/queue'
 
 export class PrismaUsersRepository implements IUsersRepository {
+  async load(): Promise<User[]> {
+    const users = await prisma.user.findMany({
+      orderBy: {
+        created_at: 'desc'
+      }
+    })
+
+    const log = {
+      type: 'info',
+      message: 'Prisma: Loading registered users',
+      data: {}
+    }
+    await add('CreateSystemLog', { log })
+
+    return users
+  }
+
   async create(user: User): Promise<User> {
     const now = new Date()
 

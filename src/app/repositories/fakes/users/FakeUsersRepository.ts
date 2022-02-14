@@ -9,6 +9,25 @@ import { add } from '~/libs/queue'
 export class FakeUsersRepository implements IUsersRepository {
   private users: User[] = []
 
+  async load(): Promise<User[]> {
+    const log = {
+      type: 'info',
+      message: 'Fake: Loading registered users',
+      data: {}
+    }
+    await add('CreateSystemLog', { log })
+
+    return this.users.sort(function (a, b) {
+      if (a.created_at < b.created_at) {
+        return 1
+      }
+      if (a.created_at > b.created_at) {
+        return -1
+      }
+      return 0
+    })
+  }
+
   async create(user: User): Promise<User> {
     const now = new Date()
     Object.assign(user, {

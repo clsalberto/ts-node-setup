@@ -1,5 +1,5 @@
 import { CreateUserController } from '~/app/controllers'
-import { PrismaUsersRepository } from '~/app/repositories/prisma'
+import { PrismaUsersRepository } from '~/app/repositories'
 import { CreateUserService } from '~/app/services'
 
 export const createUserFactory = () => {
